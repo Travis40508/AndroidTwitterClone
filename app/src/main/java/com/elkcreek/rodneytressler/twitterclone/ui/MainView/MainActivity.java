@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.elkcreek.rodneytressler.twitterclone.R;
 import com.elkcreek.rodneytressler.twitterclone.client.FirebaseService;
@@ -21,7 +22,7 @@ import butterknife.OnClick;
 import dagger.Binds;
 import dagger.android.AndroidInjection;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends AppCompatActivity implements MainView, RegistrationFragment.Callback {
 
     @Inject
     FirebaseService firebaseService;
@@ -50,6 +51,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void launchRegistrationFragment() {
         registrationFragment = RegistrationFragment.newInstance();
+        registrationFragment.attachParent(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, registrationFragment).commit();
+    }
+
+    @Override
+    public void userRegistered() {
+        Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT).show();
     }
 }

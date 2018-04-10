@@ -66,6 +66,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
+        android:id="@+id/button_register"
         android:text="Register"
         android:textSize="30sp"
         android:textColor="@android:color/white"

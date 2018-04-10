@@ -2,21 +2,59 @@ package com.elkcreek.rodneytressler.twitterclone.ui.RegistrationView;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.elkcreek.rodneytressler.twitterclone.R;
+import com.elkcreek.rodneytressler.twitterclone.client.FirebaseService;
+import com.elkcreek.rodneytressler.twitterclone.ui.MainView.MainActivity;
+import com.google.firebase.auth.FirebaseUser;
 
+import javax.inject.Inject;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import dagger.android.support.AndroidSupportInjection;
 
 /**
  * Created by rodneytressler on 4/10/18.
  */
 
-public class RegistrationFragment extends Fragment {
+public class RegistrationFragment extends Fragment implements RegistrationView {
+
+    @Inject
+    RegistrationPresenter presenter;
+
+    @Inject
+    FirebaseService firebaseService;
+
+    @BindView(R.id.input_email)
+    protected TextInputLayout emailText;
+
+    @BindView(R.id.input_password)
+    protected TextInputLayout passwordText;
+
+    @BindView(R.id.input_confirm_password)
+    protected TextInputLayout confirmPasswordText;
+
+    private Callback callback;
+
+    @OnClick(R.id.button_register)
+    protected void onRegistrationButtonClicked(View view) {
+        String email = emailText.getEditText().getText().toString();
+        String password = passwordText.getEditText().getText().toString();
+        String confirmPassword = confirmPasswordText.getEditText().getText().toString();
+
+        presenter.registrationButtonClicked(email, password, confirmPassword);
+    }
 
     @Nullable
     @Override
@@ -27,6 +65,12 @@ public class RegistrationFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter.onStart(this);
+    }
+
     public static RegistrationFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -34,5 +78,39 @@ public class RegistrationFragment extends Fragment {
         RegistrationFragment fragment = new RegistrationFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void toastPasswordsMustMatch() {
+        Toast.makeText(getContext(), "Passwords Must Match", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void toastFillEveryField() {
+        Toast.makeText(getContext(), "Please Fill in Every Field First!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void registerUser(String email, String password) {
+        FirebaseUser firebaseUser = firebaseService.signUpUserWithEmailAndPassword(email, password, getActivity());
+        presenter.userRegistered(firebaseUser);
+    }
+
+    @Override
+    public void errorRegisteringUserToast() {
+        Toast.makeText(getContext(), "Error Registering User - Please Try Again", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void userSuccessfullyRegistered() {
+        callback.userRegistered();
+    }
+
+    public void attachParent(Callback callback) {
+        this.callback = callback;
+    }
+
+    public interface Callback {
+        void userRegistered();
     }
 }

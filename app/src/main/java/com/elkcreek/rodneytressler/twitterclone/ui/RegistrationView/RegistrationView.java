@@ -5,4 +5,13 @@ package com.elkcreek.rodneytressler.twitterclone.ui.RegistrationView;
  */
 
 public interface RegistrationView {
+    void toastPasswordsMustMatch();
+
+    void toastFillEveryField();
+
+    void registerUser(String email, String password);
+
+    void errorRegisteringUserToast();
+
+    void userSuccessfullyRegistered();
 }

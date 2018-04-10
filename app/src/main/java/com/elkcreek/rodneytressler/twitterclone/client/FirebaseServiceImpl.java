@@ -10,6 +10,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Observable;
+
 /**
  * Created by rodneytressler on 4/10/18.
  */

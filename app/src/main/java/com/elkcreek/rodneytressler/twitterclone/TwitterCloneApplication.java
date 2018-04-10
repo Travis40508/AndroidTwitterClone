@@ -20,10 +20,13 @@ import dagger.android.support.HasSupportFragmentInjector;
  * Created by rodneytressler on 4/10/18.
  */
 
-public class TwitterCloneApplication extends Application implements HasActivityInjector {
+public class TwitterCloneApplication extends Application implements HasActivityInjector, HasSupportFragmentInjector {
 
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> dispatchingFragmentInjector;
 
     @Override
     public void onCreate() {
@@ -40,4 +43,8 @@ public class TwitterCloneApplication extends Application implements HasActivityI
         return dispatchingAndroidInjector;
     }
 
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return dispatchingFragmentInjector;
+    }
 }

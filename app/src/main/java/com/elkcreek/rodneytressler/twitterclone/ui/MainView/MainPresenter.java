@@ -26,4 +26,8 @@ public class MainPresenter {
 
         }
     }
+
+    public void registerButtonClicked() {
+        view.launchRegistrationFragment();
+    }
 }

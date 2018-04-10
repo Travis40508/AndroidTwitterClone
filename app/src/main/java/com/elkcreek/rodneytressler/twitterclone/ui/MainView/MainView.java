@@ -5,4 +5,5 @@ package com.elkcreek.rodneytressler.twitterclone.ui.MainView;
  */
 
 public interface MainView {
+    void launchRegistrationFragment();
 }

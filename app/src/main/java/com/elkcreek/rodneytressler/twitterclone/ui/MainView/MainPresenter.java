@@ -23,11 +23,6 @@ public class MainPresenter {
     public void onCreate(MainView view) {
         this.view = view;
 
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        if(firebaseAuth.getCurrentUser() != null) {
-
-        }
     }
 
     public void registerButtonClicked() {

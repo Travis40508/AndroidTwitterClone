@@ -2,30 +2,20 @@ package com.elkcreek.rodneytressler.twitterclone.ui.MainView;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.elkcreek.rodneytressler.twitterclone.R;
-import com.elkcreek.rodneytressler.twitterclone.client.FirebaseService;
 import com.elkcreek.rodneytressler.twitterclone.ui.RegistrationView.RegistrationFragment;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.Binds;
 import dagger.android.AndroidInjection;
 
 public class MainActivity extends AppCompatActivity implements MainView, RegistrationFragment.Callback {
 
-    @Inject
-    FirebaseService firebaseService;
 
     @Inject
     MainPresenter presenter;
@@ -57,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Registr
 
     @Override
     public void userRegistered() {
+        getSupportFragmentManager().beginTransaction().remove(registrationFragment).commit();
         Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT).show();
     }
 }

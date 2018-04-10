@@ -1,8 +1,5 @@
 package com.elkcreek.rodneytressler.twitterclone.ui.RegistrationView;
 
-import android.util.Log;
-
-import com.elkcreek.rodneytressler.twitterclone.client.FirebaseService;
 import com.google.firebase.auth.FirebaseUser;
 
 import javax.inject.Inject;

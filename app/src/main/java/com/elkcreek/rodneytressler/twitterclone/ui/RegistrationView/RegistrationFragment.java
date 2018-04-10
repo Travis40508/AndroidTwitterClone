@@ -1,27 +1,27 @@
 package com.elkcreek.rodneytressler.twitterclone.ui.RegistrationView;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.elkcreek.rodneytressler.twitterclone.R;
-import com.elkcreek.rodneytressler.twitterclone.client.FirebaseService;
-import com.elkcreek.rodneytressler.twitterclone.ui.MainView.MainActivity;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import dagger.android.support.AndroidSupportInjection;
 
 /**
@@ -33,8 +33,6 @@ public class RegistrationFragment extends Fragment implements RegistrationView {
     @Inject
     RegistrationPresenter presenter;
 
-    @Inject
-    FirebaseService firebaseService;
 
     @BindView(R.id.input_email)
     protected TextInputLayout emailText;
@@ -92,8 +90,18 @@ public class RegistrationFragment extends Fragment implements RegistrationView {
 
     @Override
     public void registerUser(String email, String password) {
-        FirebaseUser firebaseUser = firebaseService.signUpUserWithEmailAndPassword(email, password, getActivity());
-        presenter.userRegistered(firebaseUser);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            presenter.userRegistered(firebaseAuth.getCurrentUser());
+                        } else {
+                            Log.e("@@@@@@@@", task.getException().getMessage());
+                        }
+                    }
+                });
     }
 
     @Override

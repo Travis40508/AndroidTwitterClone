@@ -1,6 +1,6 @@
 package com.elkcreek.rodneytressler.twitterclone.ui.MainView;
 
-import com.elkcreek.rodneytressler.twitterclone.client.FirebaseService;
+import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
 
@@ -11,18 +11,19 @@ import javax.inject.Inject;
 public class MainPresenter {
 
 
-    private final FirebaseService firebaseService;
     private MainView view;
 
     @Inject
-    public MainPresenter(FirebaseService firebaseService) {
-        this.firebaseService = firebaseService;
+    public MainPresenter() {
+
     }
 
     public void onCreate(MainView view) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
         this.view = view;
 
-        if(firebaseService.getCurrentUser() != null) {
+        if(firebaseAuth.getCurrentUser() != null) {
 
         }
     }

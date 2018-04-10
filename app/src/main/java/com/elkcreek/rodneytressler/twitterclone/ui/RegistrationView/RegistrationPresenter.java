@@ -1,5 +1,6 @@
 package com.elkcreek.rodneytressler.twitterclone.ui.RegistrationView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import javax.inject.Inject;
@@ -24,7 +25,8 @@ public class RegistrationPresenter {
     public void registrationButtonClicked(String email, String password, String confirmPassword) {
         if(!email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
             if(password.equals(confirmPassword)) {
-                view.registerUser(email, password);
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                view.registerUser(email, password, firebaseAuth);
             } else {
                 view.toastPasswordsMustMatch();
             }

@@ -1,6 +1,7 @@
 package com.elkcreek.rodneytressler.twitterclone.ui.MainView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import javax.inject.Inject;
 
@@ -12,6 +13,7 @@ public class MainPresenter {
 
 
     private MainView view;
+    private FirebaseAuth firebaseAuth;
 
     @Inject
     public MainPresenter() {
@@ -19,9 +21,9 @@ public class MainPresenter {
     }
 
     public void onCreate(MainView view) {
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
         this.view = view;
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         if(firebaseAuth.getCurrentUser() != null) {
 
@@ -30,5 +32,19 @@ public class MainPresenter {
 
     public void registerButtonClicked() {
         view.launchRegistrationFragment();
+    }
+
+    public void loginButtonClicked(String email, String password) {
+        view.logUserIn(email, password, firebaseAuth);
+    }
+
+    public void loginSuccessful(FirebaseUser currentUser) {
+        if(currentUser != null) {
+            view.launchPostsActivity();
+        }
+    }
+
+    public void loginFailed() {
+        view.toastLoginFailed();
     }
 }

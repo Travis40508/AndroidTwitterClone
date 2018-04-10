@@ -89,8 +89,7 @@ public class RegistrationFragment extends Fragment implements RegistrationView {
     }
 
     @Override
-    public void registerUser(String email, String password) {
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    public void registerUser(String email, String password, FirebaseAuth firebaseAuth) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override

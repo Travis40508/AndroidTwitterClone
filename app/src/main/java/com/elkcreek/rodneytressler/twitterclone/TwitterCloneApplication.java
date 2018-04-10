@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import com.elkcreek.rodneytressler.twitterclone.di.ApplicationComponent;
 import com.elkcreek.rodneytressler.twitterclone.di.ApplicationModule;
 import com.elkcreek.rodneytressler.twitterclone.di.DaggerApplicationComponent;
+import com.elkcreek.rodneytressler.twitterclone.di.FirebaseModule;
 
 import javax.inject.Inject;
 
@@ -29,6 +30,7 @@ public class TwitterCloneApplication extends Application implements HasActivityI
         super.onCreate();
         DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
+                .firebaseModule(new FirebaseModule())
                 .build()
                 .inject(this);
     }

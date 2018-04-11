@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.elkcreek.rodneytressler.twitterclone.R;
 import com.elkcreek.rodneytressler.twitterclone.models.Post;
@@ -40,6 +41,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
     @Override
     public void onBindViewHolder(PostsViewHolder holder, int position) {
         holder.bindPosts(postList.get(position));
+
+        holder.isFavorited.setOnClickListener(holder.onLikeClicked());
     }
 
     @Override
@@ -74,17 +77,30 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
             userEmail.setText(post.getEmail());
             postContent.setText(post.getPostContent());
             postTimeStamp.setText(post.getDate());
-//            isFavorited.setImageDrawable(getFavorited(post));
+            isFavorited.setImageDrawable(getFavorited(post));
         }
 
-//        private Drawable getFavorited(Post post) {
-//            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-////            if(post.getLikes().contains(firebaseUser.getEmail())) {
-////                return itemView.getResources().getDrawable(R.drawable.ic_favorite);
-////            } else {
-////                return itemView.getResources().getDrawable(R.drawable.ic_unfavorite);
-////            }
-//        }
+        private Drawable getFavorited(Post post) {
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+            if (post.getLikes() != null) {
+                if (post.getLikes().contains(firebaseUser.getEmail())) {
+                    return itemView.getResources().getDrawable(R.drawable.ic_favorite);
+                } else {
+                    return itemView.getResources().getDrawable(R.drawable.ic_unfavorite);
+                }
+            } else {
+                return itemView.getResources().getDrawable(R.drawable.ic_unfavorite);
+            }
+        }
+
+        public View.OnClickListener onLikeClicked() {
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            };
+        }
     }
 }

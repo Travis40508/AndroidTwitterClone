@@ -13,14 +13,11 @@ import java.util.List;
  */
 
 public class Post {
-    private FirebaseAuth mAuth;
-    private String userEmail;
     private String postContent;
     private String date;
     private List<String> likes;
 
     public Post(String postContent) {
-        this.userEmail = getEmail();
         this.postContent = postContent;
         this.likes = new ArrayList<>();
         this.date = getDate();
@@ -31,26 +28,27 @@ public class Post {
     }
 
     public String getEmail() {
+        FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         return user.getEmail();
     }
 
+    public String getDisplayName() {
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        return user.getDisplayName();
+    }
+
     public String getDate() {
         Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         String strDate= formatter.format(date);
         return strDate;
     }
 
 
-    public FirebaseAuth getmAuth() {
-        return mAuth;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
 
     public String getPostContent() {
         return postContent;

@@ -33,6 +33,8 @@ public class RegistrationFragment extends Fragment implements RegistrationView {
     @Inject
     RegistrationPresenter presenter;
 
+    @BindView(R.id.input_full_name)
+    protected TextInputLayout fullName;
 
     @BindView(R.id.input_email)
     protected TextInputLayout emailText;
@@ -95,7 +97,8 @@ public class RegistrationFragment extends Fragment implements RegistrationView {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            presenter.userRegistered(firebaseAuth.getCurrentUser());
+                            String name = fullName.getEditText().getText().toString();
+                            presenter.userRegistered(firebaseAuth.getCurrentUser(), name);
                         } else {
                             Log.e("@@@@@@@@", task.getException().getMessage());
                         }

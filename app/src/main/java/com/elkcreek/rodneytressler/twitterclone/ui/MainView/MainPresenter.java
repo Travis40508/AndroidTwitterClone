@@ -17,7 +17,7 @@ public class MainPresenter {
 
     @Inject
     public MainPresenter() {
-
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     public void onCreate(MainView view) {

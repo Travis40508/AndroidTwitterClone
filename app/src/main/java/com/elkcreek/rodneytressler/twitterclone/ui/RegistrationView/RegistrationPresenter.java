@@ -2,6 +2,7 @@ package com.elkcreek.rodneytressler.twitterclone.ui.RegistrationView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import javax.inject.Inject;
 
@@ -35,9 +36,12 @@ public class RegistrationPresenter {
         }
     }
 
-    public void userRegistered(FirebaseUser firebaseUser) {
+    public void userRegistered(FirebaseUser firebaseUser, String name) {
         if(firebaseUser != null) {
             view.userSuccessfullyRegistered();
+            UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(name).build();
+            firebaseUser.updateProfile(profileChangeRequest);
         } else {
             view.errorRegisteringUserToast();
         }

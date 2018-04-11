@@ -61,26 +61,30 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         @BindView(R.id.image_favorite)
         protected ImageView isFavorited;
 
+        @BindView(R.id.text_user_name)
+        protected TextView userName;
+
         public PostsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
         public void bindPosts(Post post) {
+            userName.setText(post.getDisplayName());
             userEmail.setText(post.getEmail());
             postContent.setText(post.getPostContent());
             postTimeStamp.setText(post.getDate());
-            isFavorited.setImageDrawable(getFavorited(post));
+//            isFavorited.setImageDrawable(getFavorited(post));
         }
 
-        private Drawable getFavorited(Post post) {
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            if(post.getLikes().contains(firebaseUser.getEmail())) {
-                return itemView.getResources().getDrawable(R.drawable.ic_favorite);
-            } else {
-                return itemView.getResources().getDrawable(R.drawable.ic_unfavorite);
-            }
-        }
+//        private Drawable getFavorited(Post post) {
+//            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+////            if(post.getLikes().contains(firebaseUser.getEmail())) {
+////                return itemView.getResources().getDrawable(R.drawable.ic_favorite);
+////            } else {
+////                return itemView.getResources().getDrawable(R.drawable.ic_unfavorite);
+////            }
+//        }
     }
 }

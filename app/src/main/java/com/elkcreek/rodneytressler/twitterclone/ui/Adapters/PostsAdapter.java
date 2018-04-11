@@ -103,4 +103,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
             };
         }
     }
+
+    public interface Callback {
+        void favoriteClicked(String userEmail);
+    }
 }

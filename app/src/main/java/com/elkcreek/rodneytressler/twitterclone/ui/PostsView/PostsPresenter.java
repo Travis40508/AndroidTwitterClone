@@ -30,7 +30,6 @@ public class PostsPresenter {
             mDatabase = FirebaseDatabase.getInstance().getReference();
         }
 
-        listenForPostUpdates();
     }
 
     private void listenForPostUpdates() {
@@ -86,6 +85,7 @@ public class PostsPresenter {
 
     public void onResume() {
         appIsActive = true;
+        listenForPostUpdates();
     }
 
     public void onPause() {

@@ -52,6 +52,7 @@ public class PostsActivity extends AppCompatActivity implements PostsView {
         adapter.notifyDataSetChanged();
     }
 
+
     @Override
     public void showNewPost(Post post) {
         postList.add(post);

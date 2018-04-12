@@ -45,7 +45,7 @@ public class NotificationUtil {
     private static Bitmap getLargeIcon(Context context) {
         Resources res = context.getResources();
 
-        Bitmap largeIcon = BitmapFactory.decodeResource(res, R.drawable.ic_launcher_background);
+        Bitmap largeIcon = BitmapFactory.decodeResource(res, R.drawable.ic_tweet_notification);
         return largeIcon;
     }
 
@@ -72,7 +72,7 @@ public class NotificationUtil {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(context, CLICK_REMINDER_NOTIFICATION_CHANNEL_ID)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.ic_tweet_notification)
                 .setLargeIcon(getLargeIcon(context))
                 .setContentTitle("Tweet Received!")
                 .setContentText("A new Tweet has been left, read it?")

@@ -21,6 +21,7 @@ public class PostsPresenter {
     private PostsView view;
     private DatabaseReference mDatabase;
     private boolean appIsActive = false;
+    private boolean pushNotificationPreference;
 
     public void onCreate(PostsView view) {
         this.view = view;
@@ -43,7 +44,7 @@ public class PostsPresenter {
                         FirebaseUser user = auth.getCurrentUser();
                         Post post = dataSnapshot.getValue(Post.class);
                         view.showNewPost(post);
-                        if (!post.getPostEmail().equals(user.getEmail()) && !appIsActive) {
+                        if (!post.getPostEmail().equals(user.getEmail()) && !appIsActive && pushNotificationPreference) {
                             view.showNotification();
                         }
                     }
@@ -101,5 +102,9 @@ public class PostsPresenter {
 
     public void settingsClicked() {
         view.launchPreferenceFragment();
+    }
+
+    public void getPushPreference(boolean pushNotificationPreference) {
+        this.pushNotificationPreference = pushNotificationPreference;
     }
 }

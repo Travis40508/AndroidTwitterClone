@@ -18,6 +18,7 @@ import com.elkcreek.rodneytressler.twitterclone.ui.Adapters.PostsAdapter;
 import com.elkcreek.rodneytressler.twitterclone.ui.PostView.PostFragment;
 import com.elkcreek.rodneytressler.twitterclone.ui.PreferencesView.PreferenceActivity;
 import com.elkcreek.rodneytressler.twitterclone.util.NotificationUtil;
+import com.elkcreek.rodneytressler.twitterclone.util.PrefUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,6 +137,7 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
     protected void onResume() {
         super.onResume();
         presenter.onResume();
+        presenter.getPushPreference(PrefUtil.getPushNotificationPreference(this));
     }
 
     @Override

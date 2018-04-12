@@ -12,4 +12,6 @@ public interface PostsView {
     void clearPostText();
 
     void toastMustHavePostContent();
+
+    void showNotification();
 }

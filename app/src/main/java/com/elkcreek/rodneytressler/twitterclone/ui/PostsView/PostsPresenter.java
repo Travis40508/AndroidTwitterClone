@@ -45,7 +45,7 @@ public class PostsPresenter {
                         Post post = dataSnapshot.getValue(Post.class);
                         view.showNewPost(post);
                         if(!post.getPostEmail().equals(user.getEmail()) && !appIsActive) {
-                            Log.d("@@@@", "IT'S NOTIFICATION TIME!");
+                            view.showNotification();
                         }
                     }
 

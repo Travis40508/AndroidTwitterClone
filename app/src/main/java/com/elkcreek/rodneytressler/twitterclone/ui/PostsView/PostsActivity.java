@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.elkcreek.rodneytressler.twitterclone.R;
 import com.elkcreek.rodneytressler.twitterclone.models.Post;
 import com.elkcreek.rodneytressler.twitterclone.ui.Adapters.PostsAdapter;
+import com.elkcreek.rodneytressler.twitterclone.util.NotificationUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,11 @@ public class PostsActivity extends AppCompatActivity implements PostsView {
     @Override
     public void toastMustHavePostContent() {
         Toast.makeText(this, "Must Enter Some Text Before Posting", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showNotification() {
+        NotificationUtil.notifyTweetReceived(this);
     }
 
     @Override

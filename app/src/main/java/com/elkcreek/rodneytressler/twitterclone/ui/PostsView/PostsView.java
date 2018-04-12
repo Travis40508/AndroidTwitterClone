@@ -16,4 +16,6 @@ public interface PostsView {
     void sendAppToBackground();
 
     void attachLeaveTweetFragment();
+
+    void detachFragment();
 }

@@ -87,8 +87,12 @@ public class PostsPresenter {
         appIsActive = false;
     }
 
-    public void backPressed() {
-        view.sendAppToBackground();
+    public void backPressed(boolean fragmentIsAdded) {
+        if(fragmentIsAdded) {
+          view.detachFragment();
+        } else {
+            view.sendAppToBackground();
+        }
     }
 
     public void leaveTweetClicked() {

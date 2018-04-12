@@ -82,7 +82,20 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
     public void attachLeaveTweetFragment() {
         fragment = PostFragment.newInstance();
         fragment.attachView(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, fragment).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.enter, R.anim.pop_exit)
+                .replace(R.id.fragment_holder, fragment)
+                .commit();
+    }
+
+    @Override
+    public void detachFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.pop_enter, R.anim.pop_exit)
+                .remove(fragment)
+                .commit();
     }
 
 
@@ -100,12 +113,16 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
 
     @Override
     public void onBackPressed() {
-        presenter.backPressed();
+        presenter.backPressed(fragment.isAdded());
     }
 
     @Override
     public void tweetSubmitted(Post post) {
         presenter.leavePostClicked(post);
-        getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.pop_enter, R.anim.pop_exit)
+                .remove(fragment)
+                .commit();
     }
 }

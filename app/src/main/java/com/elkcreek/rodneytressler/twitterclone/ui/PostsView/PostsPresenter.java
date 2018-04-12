@@ -91,4 +91,8 @@ public class PostsPresenter {
     public void onPause() {
         appIsActive = false;
     }
+
+    public void backPressed() {
+        view.sendAppToBackground();
+    }
 }

@@ -74,6 +74,11 @@ public class PostsActivity extends AppCompatActivity implements PostsView {
     }
 
     @Override
+    public void sendAppToBackground() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         presenter.onResume();
@@ -83,5 +88,10 @@ public class PostsActivity extends AppCompatActivity implements PostsView {
     protected void onPause() {
         super.onPause();
         presenter.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        presenter.backPressed();
     }
 }

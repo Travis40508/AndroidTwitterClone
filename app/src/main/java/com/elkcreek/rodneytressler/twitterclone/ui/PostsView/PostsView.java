@@ -14,4 +14,6 @@ public interface PostsView {
     void toastMustHavePostContent();
 
     void showNotification();
+
+    void sendAppToBackground();
 }

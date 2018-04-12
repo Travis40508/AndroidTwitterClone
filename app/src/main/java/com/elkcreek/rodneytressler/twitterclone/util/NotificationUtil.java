@@ -1,17 +1,20 @@
 package com.elkcreek.rodneytressler.twitterclone.util;
 
+import android.accessibilityservice.AccessibilityService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.view.accessibility.AccessibilityEvent;
 
 import com.elkcreek.rodneytressler.twitterclone.R;
 import com.elkcreek.rodneytressler.twitterclone.ui.PostsView.PostsActivity;
@@ -63,6 +66,7 @@ public class NotificationUtil {
                     "Tweet Notification",
                     NotificationManager.IMPORTANCE_HIGH
             );
+            notificationManager.createNotificationChannel(mChannel);
         }
 
         NotificationCompat.Builder notificationBuilder =
@@ -72,7 +76,6 @@ public class NotificationUtil {
                 .setLargeIcon(getLargeIcon(context))
                 .setContentTitle("Tweet Received!")
                 .setContentText("A new Tweet has been left, read it?")
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("Tweeeeeet"))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent(context))
                 .setAutoCancel(true);

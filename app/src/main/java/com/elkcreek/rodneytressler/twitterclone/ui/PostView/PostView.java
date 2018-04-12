@@ -5,4 +5,7 @@ package com.elkcreek.rodneytressler.twitterclone.ui.PostView;
  */
 
 public interface PostView {
+    void leaveTweet(String tweetContent);
+
+    void toastMustHaveContent();
 }

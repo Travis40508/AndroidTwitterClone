@@ -43,7 +43,7 @@ public class PostsPresenter {
                         FirebaseUser user = auth.getCurrentUser();
                         Post post = dataSnapshot.getValue(Post.class);
                         view.showNewPost(post);
-                        if(!post.getPostEmail().equals(user.getEmail()) && !appIsActive) {
+                        if (!post.getPostEmail().equals(user.getEmail()) && !appIsActive) {
                             view.showNotification();
                         }
                     }
@@ -75,12 +75,7 @@ public class PostsPresenter {
     }
 
     public void leavePostClicked(Post post) {
-        if (!post.getPostContent().isEmpty()) {
-            mDatabase.push().setValue(post);
-            view.clearPostText();
-        } else {
-            view.toastMustHavePostContent();
-        }
+        mDatabase.push().setValue(post);
     }
 
     public void onResume() {
@@ -96,4 +91,7 @@ public class PostsPresenter {
         view.sendAppToBackground();
     }
 
+    public void leaveTweetClicked() {
+        view.attachLeaveTweetFragment();
+    }
 }

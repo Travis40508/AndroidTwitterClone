@@ -11,9 +11,9 @@ public interface PostsView {
 
     void clearPostText();
 
-    void toastMustHavePostContent();
-
     void showNotification();
 
     void sendAppToBackground();
+
+    void attachLeaveTweetFragment();
 }

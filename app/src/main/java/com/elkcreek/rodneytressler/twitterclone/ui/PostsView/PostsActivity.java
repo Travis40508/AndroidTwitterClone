@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.elkcreek.rodneytressler.twitterclone.R;
 import com.elkcreek.rodneytressler.twitterclone.models.Post;
 import com.elkcreek.rodneytressler.twitterclone.ui.Adapters.PostsAdapter;
+import com.elkcreek.rodneytressler.twitterclone.ui.PostView.PostFragment;
 import com.elkcreek.rodneytressler.twitterclone.util.NotificationUtil;
 
 import java.util.ArrayList;
@@ -20,14 +21,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PostsActivity extends AppCompatActivity implements PostsView {
+public class PostsActivity extends AppCompatActivity implements PostsView, PostFragment.Callback {
 
     @BindView(R.id.posts_recycler_view)
     protected RecyclerView postsRecyclerView;
 
+    @OnClick(R.id.fab_leave_tweet)
+    protected void onLeaveTweetClicked(View view) {
+        presenter.leaveTweetClicked();
+    }
+
     private PostsAdapter adapter;
     private PostsPresenter presenter;
     private List<Post> postList;
+    private PostFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +67,6 @@ public class PostsActivity extends AppCompatActivity implements PostsView {
 //        postContent.setText("");
     }
 
-    @Override
-    public void toastMustHavePostContent() {
-        Toast.makeText(this, "Must Enter Some Text Before Posting", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void showNotification() {
@@ -73,6 +76,13 @@ public class PostsActivity extends AppCompatActivity implements PostsView {
     @Override
     public void sendAppToBackground() {
         moveTaskToBack(true);
+    }
+
+    @Override
+    public void attachLeaveTweetFragment() {
+        fragment = PostFragment.newInstance();
+        fragment.attachView(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, fragment).commit();
     }
 
 
@@ -91,5 +101,11 @@ public class PostsActivity extends AppCompatActivity implements PostsView {
     @Override
     public void onBackPressed() {
         presenter.backPressed();
+    }
+
+    @Override
+    public void tweetSubmitted(Post post) {
+        presenter.leavePostClicked(post);
+        getSupportFragmentManager().beginTransaction().remove(fragment).commit();
     }
 }

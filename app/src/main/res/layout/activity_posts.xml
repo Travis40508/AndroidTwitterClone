@@ -9,34 +9,23 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/posts_recycler_view"
-        app:layout_constraintTop_toBottomOf="@id/button_leave_post"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         >
 
     </android.support.v7.widget.RecyclerView>
 
-    <EditText
-        android:id="@+id/input_post_content"
-        android:textColorHint="@android:color/darker_gray"
-        android:background="@android:color/white"
-        android:textSize="24sp"
-        android:hint="Post Something"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="70dp" />
-
-    <Button
-        android:id="@+id/button_leave_post"
-        app:layout_constraintTop_toBottomOf="@id/input_post_content"
+    <android.support.design.widget.FloatingActionButton
+        android:src="@drawable/ic_tweet_compose"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Post"
-        android:textSize="30sp"
-        android:textColor="@android:color/white"
-        android:background="@android:color/transparent"
-        android:layout_width="match_parent"
+        android:elevation="5dp"
+        app:backgroundTint="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
 
 </android.support.constraint.ConstraintLayout>

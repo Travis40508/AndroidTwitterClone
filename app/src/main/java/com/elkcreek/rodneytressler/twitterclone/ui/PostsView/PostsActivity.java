@@ -25,14 +25,6 @@ public class PostsActivity extends AppCompatActivity implements PostsView {
     @BindView(R.id.posts_recycler_view)
     protected RecyclerView postsRecyclerView;
 
-    @BindView(R.id.input_post_content)
-    protected EditText postContent;
-
-    @OnClick(R.id.button_leave_post)
-    protected void onLeavePostClicked(View view) {
-        presenter.leavePostClicked(new Post(postContent.getText().toString()));
-    }
-
     private PostsAdapter adapter;
     private PostsPresenter presenter;
     private List<Post> postList;
@@ -65,7 +57,7 @@ public class PostsActivity extends AppCompatActivity implements PostsView {
 
     @Override
     public void clearPostText() {
-        postContent.setText("");
+//        postContent.setText("");
     }
 
     @Override

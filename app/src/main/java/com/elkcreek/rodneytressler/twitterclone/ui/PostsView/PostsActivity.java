@@ -1,12 +1,14 @@
 package com.elkcreek.rodneytressler.twitterclone.ui.PostsView;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.elkcreek.rodneytressler.twitterclone.R;
 import com.elkcreek.rodneytressler.twitterclone.models.Post;
@@ -26,6 +28,9 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
     @BindView(R.id.posts_recycler_view)
     protected RecyclerView postsRecyclerView;
 
+    @BindView(R.id.toolbar)
+    protected Toolbar customToolbar;
+
     @OnClick(R.id.fab_leave_tweet)
     protected void onLeaveTweetClicked(View view) {
         presenter.leaveTweetClicked();
@@ -41,6 +46,7 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posts);
         ButterKnife.bind(this);
+        setSupportActionBar(customToolbar);
         presenter = new PostsPresenter();
         presenter.onCreate(this);
 
@@ -54,6 +60,24 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        customToolbar.setTitle("Interapt Skills Twitter Clone");
+        customToolbar.setTitleTextColor(Color.WHITE);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void showNewPost(Post post) {

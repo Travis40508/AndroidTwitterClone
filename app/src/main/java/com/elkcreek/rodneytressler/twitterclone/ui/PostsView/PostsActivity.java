@@ -1,5 +1,6 @@
 package com.elkcreek.rodneytressler.twitterclone.ui.PostsView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.elkcreek.rodneytressler.twitterclone.R;
 import com.elkcreek.rodneytressler.twitterclone.models.Post;
 import com.elkcreek.rodneytressler.twitterclone.ui.Adapters.PostsAdapter;
 import com.elkcreek.rodneytressler.twitterclone.ui.PostView.PostFragment;
+import com.elkcreek.rodneytressler.twitterclone.ui.PreferencesView.PreferenceActivity;
 import com.elkcreek.rodneytressler.twitterclone.util.NotificationUtil;
 
 import java.util.ArrayList;
@@ -75,7 +77,7 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            Toast.makeText(this, "WOO!!", Toast.LENGTH_SHORT).show();
+            presenter.settingsClicked();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -122,6 +124,11 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
                 .setCustomAnimations(R.anim.pop_enter, R.anim.pop_exit)
                 .remove(fragment)
                 .commit();
+    }
+
+    @Override
+    public void launchPreferenceFragment() {
+        startActivity(new Intent(this, PreferenceActivity.class));
     }
 
 

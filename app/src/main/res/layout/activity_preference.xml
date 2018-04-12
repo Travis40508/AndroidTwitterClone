@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_preferences"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:name="com.elkcreek.rodneytressler.twitterclone.ui.PreferencesView.PreferencesFragment"
+    android:layout_height="match_parent"
+    tools:context="com.elkcreek.rodneytressler.twitterclone.ui.PreferencesView.PreferenceActivity">
+
+</fragment>

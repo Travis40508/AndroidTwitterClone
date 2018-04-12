@@ -18,4 +18,6 @@ public interface PostsView {
     void attachLeaveTweetFragment();
 
     void detachFragment();
+
+    void launchPreferenceFragment();
 }

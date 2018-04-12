@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="push_notifications_enabled"
+        android:summaryOff="Disabled"
+        android:summaryOn="Enabled"
+        android:title="Enable Push Notifications">
+
+    </CheckBoxPreference>
+
+    <PreferenceCategory
+        android:title="Log Out">
+        <Preference
+            android:key="log_out"
+            android:summary="Log Out of Interapt Skills Twitter Clone">
+
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -98,4 +98,8 @@ public class PostsPresenter {
     public void leaveTweetClicked() {
         view.attachLeaveTweetFragment();
     }
+
+    public void settingsClicked() {
+        view.launchPreferenceFragment();
+    }
 }

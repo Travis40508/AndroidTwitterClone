@@ -47,7 +47,10 @@ public class PostsActivity extends AppCompatActivity implements PostsView {
 
         postList = new ArrayList<>();
         adapter = new PostsAdapter(postList);
-        postsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        postsRecyclerView.setLayoutManager(mLayoutManager);
         postsRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -57,6 +60,7 @@ public class PostsActivity extends AppCompatActivity implements PostsView {
     public void showNewPost(Post post) {
         postList.add(post);
         adapter.notifyDataSetChanged();
+        postsRecyclerView.scrollToPosition(postList.size() - 1);
     }
 
     @Override
@@ -78,6 +82,7 @@ public class PostsActivity extends AppCompatActivity implements PostsView {
     public void sendAppToBackground() {
         moveTaskToBack(true);
     }
+
 
     @Override
     protected void onResume() {

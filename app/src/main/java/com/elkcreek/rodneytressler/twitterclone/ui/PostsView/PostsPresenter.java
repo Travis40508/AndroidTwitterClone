@@ -95,4 +95,5 @@ public class PostsPresenter {
     public void backPressed() {
         view.sendAppToBackground();
     }
+
 }

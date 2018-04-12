@@ -1,5 +1,10 @@
 package com.elkcreek.rodneytressler.twitterclone.ui.MainView;
 
+import android.os.AsyncTask;
+import android.os.CountDownTimer;
+import android.os.Looper;
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -24,6 +29,7 @@ public class MainPresenter {
         this.view = view;
 
     }
+
 
     public void registerButtonClicked() {
         view.launchRegistrationFragment();

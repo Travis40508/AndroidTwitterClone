@@ -66,4 +66,16 @@ public class PostsActivity extends AppCompatActivity implements PostsView {
     public void toastMustHavePostContent() {
         Toast.makeText(this, "Must Enter Some Text Before Posting", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.onPause();
+    }
 }

@@ -15,16 +15,32 @@ import java.util.List;
 public class Post {
     private String postContent;
     private String date;
+    private String email;
+    private String displayName;
     private List<String> likes;
 
     public Post(String postContent) {
         this.postContent = postContent;
         this.likes = new ArrayList<>();
         this.date = getDate();
+        this.email = getEmail();
+        this.displayName = getDisplayName();
     }
 
     public Post() {
 
+    }
+
+    public String getPostDate() {
+        return date;
+    }
+
+    public String getPostDisplayName() {
+        return displayName;
+    }
+
+    public String getPostEmail() {
+        return email;
     }
 
     public String getEmail() {

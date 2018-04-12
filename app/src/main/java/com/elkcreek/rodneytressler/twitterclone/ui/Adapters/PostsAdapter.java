@@ -73,10 +73,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         }
 
         public void bindPosts(Post post) {
-            userName.setText(post.getDisplayName());
-            userEmail.setText(post.getEmail());
+            userName.setText(post.getPostDisplayName());
+            userEmail.setText(post.getPostEmail());
             postContent.setText(post.getPostContent());
-            postTimeStamp.setText(post.getDate());
+            postTimeStamp.setText(post.getPostDate());
             isFavorited.setImageDrawable(getFavorited(post));
         }
 

@@ -79,10 +79,6 @@ public class PostsPresenter {
         mDatabase.push().setValue(post);
     }
 
-    public void onResume() {
-        appIsActive = true;
-        listenForPostUpdates();
-    }
 
     public void onPause() {
         appIsActive = false;
@@ -106,5 +102,11 @@ public class PostsPresenter {
 
     public void getPushPreference(boolean pushNotificationPreference) {
         this.pushNotificationPreference = pushNotificationPreference;
+        appIsActive = true;
     }
+
+    public void onResume() {
+        listenForPostUpdates();
+    }
+
 }

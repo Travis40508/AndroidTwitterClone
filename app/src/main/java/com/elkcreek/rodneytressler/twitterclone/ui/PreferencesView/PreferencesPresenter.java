@@ -5,4 +5,13 @@ package com.elkcreek.rodneytressler.twitterclone.ui.PreferencesView;
  */
 
 public class PreferencesPresenter {
+    private PreferencesView view;
+
+    public void onStart(PreferencesView view) {
+        this.view = view;
+    }
+
+    public void preferenceChanged() {
+        view.changePushPreference();
+    }
 }

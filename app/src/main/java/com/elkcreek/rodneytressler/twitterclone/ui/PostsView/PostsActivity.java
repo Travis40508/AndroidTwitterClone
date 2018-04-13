@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -104,6 +105,7 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
 
     @Override
     public void sendAppToBackground() {
+
         moveTaskToBack(true);
     }
 
@@ -133,6 +135,7 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
     }
 
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -160,4 +163,6 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
                 .remove(fragment)
                 .commit();
     }
+
+
 }

@@ -139,7 +139,6 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.onResume();
         presenter.getPushPreference(PrefUtil.getPushNotificationPreference(this));
     }
 

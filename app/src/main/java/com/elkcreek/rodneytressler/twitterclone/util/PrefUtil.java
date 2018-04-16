@@ -18,7 +18,7 @@ public class PrefUtil {
         return pushEnabled;
     }
 
-    synchronized public static void changePushSelection(Context context) {
+    public static void changePushSelection(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(KEY_PUSH_NOTIFICATIONS_ENABLED, !getPushNotificationPreference(context));

@@ -33,6 +33,7 @@ public class NotificationUtil {
 
     private static PendingIntent contentIntent(Context context) {
         Intent startActivityIntent = new Intent(context, PostsActivity.class);
+        startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         return PendingIntent.getActivity(
                 context,

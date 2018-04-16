@@ -166,6 +166,11 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
 
     @Override
     public void favoriteClicked(Post post, String userEmail) {
+        presenter.favoriteClicked(post, userEmail);
+    }
 
+    @Override
+    public void unFavoriteClicked(Post post, String userEmail) {
+        presenter.unFavoriteClicked(post, userEmail);
     }
 }

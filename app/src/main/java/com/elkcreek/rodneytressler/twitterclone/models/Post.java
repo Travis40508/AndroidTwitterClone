@@ -22,7 +22,6 @@ public class Post {
 
     public Post(String postContent) {
         this.postContent = postContent;
-        this.likes = new ArrayList<>();
         this.date = setDate();
         this.email = setEmail();
         this.displayName = setDisplayName();

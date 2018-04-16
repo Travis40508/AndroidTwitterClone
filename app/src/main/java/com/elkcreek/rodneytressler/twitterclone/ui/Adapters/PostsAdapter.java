@@ -10,11 +10,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.elkcreek.rodneytressler.twitterclone.R;
+import com.elkcreek.rodneytressler.twitterclone.models.Likes;
 import com.elkcreek.rodneytressler.twitterclone.models.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -29,11 +33,17 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
 
     private List<Post> postList;
     private Callback callback;
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseUser firebaseUser;
+    private FirebaseAuth firebaseAuth;
 
 
     public PostsAdapter(List<Post> postList, Callback callback) {
         this.postList = postList;
         this.callback = callback;
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
     }
 
 
@@ -82,20 +92,37 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
             userEmail.setText(post.getEmail());
             postContent.setText(post.getPostContent());
             postTimeStamp.setText(post.getDate());
-            isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_unfavorite));
+
+            firebaseDatabase.getReference().child(post.getPostKey()).child("likes").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Likes like = snapshot.getValue(Likes.class);
+                        if(like.getEmail().equals(firebaseUser.getEmail())) {
+                            isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_favorite));
+                        } else {
+                            isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_unfavorite));
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
 
-//        private Drawable getFavorited(Post post) {
-//            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-//
-//        }
 
         public View.OnClickListener onLikeClicked(Post post) {
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                    if(isFavorited.getDrawable().equals(itemView.getResources().getDrawable(R.drawable.ic_favorite))) {
+                        callback.unFavoriteClicked(post, firebaseUser.getEmail());
+                    } else {
+                        callback.favoriteClicked(post, firebaseUser.getEmail());
+                    }
                 }
             };
         }
@@ -103,5 +130,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
 
     public interface Callback {
         void favoriteClicked(Post post, String userEmail);
+        void unFavoriteClicked(Post post, String userEmail);
     }
 }

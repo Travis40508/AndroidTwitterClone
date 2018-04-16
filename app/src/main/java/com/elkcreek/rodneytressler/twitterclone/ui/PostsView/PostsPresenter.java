@@ -108,5 +108,11 @@ public class PostsPresenter {
     }
 
 
+    public void favoriteClicked(Post post, String userEmail) {
+        mDatabase.child(post.getPostKey()).child("likes").push().setValue(userEmail);
+    }
 
+    public void unFavoriteClicked(Post post, String userEmail) {
+
+    }
 }

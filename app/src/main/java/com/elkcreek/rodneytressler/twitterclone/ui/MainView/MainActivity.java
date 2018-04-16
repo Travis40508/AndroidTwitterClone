@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.elkcreek.rodneytressler.twitterclone.R;
@@ -36,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements MainView, Registr
 
     @BindView(R.id.input_password)
     protected TextInputLayout passwordText;
+
+    @BindView(R.id.progress_bar)
+    protected ProgressBar progressBar;
 
     @OnClick(R.id.button_register)
     protected void onRegisterClicked(View view) {
@@ -91,6 +95,16 @@ public class MainActivity extends AppCompatActivity implements MainView, Registr
     @Override
     public void launchPostsActivity() {
         startActivity(new Intent(this, PostsActivity.class));
+    }
+
+    @Override
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override

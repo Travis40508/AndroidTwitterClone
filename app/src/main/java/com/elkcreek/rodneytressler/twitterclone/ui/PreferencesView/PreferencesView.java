@@ -6,4 +6,8 @@ package com.elkcreek.rodneytressler.twitterclone.ui.PreferencesView;
 
 public interface PreferencesView {
     void changePushPreference();
+
+    void showLogoutDialog();
+
+    void showLoginScreen();
 }

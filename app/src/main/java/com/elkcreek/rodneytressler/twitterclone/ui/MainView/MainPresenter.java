@@ -36,6 +36,7 @@ public class MainPresenter {
     }
 
     public void loginButtonClicked(String email, String password) {
+        view.showProgressBar();
         view.logUserIn(email, password, firebaseAuth);
     }
 
@@ -46,6 +47,7 @@ public class MainPresenter {
     }
 
     public void loginFailed() {
+        view.hideProgressBar();
         view.toastLoginFailed();
     }
 }

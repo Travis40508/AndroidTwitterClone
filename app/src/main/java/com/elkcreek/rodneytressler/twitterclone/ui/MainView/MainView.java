@@ -14,4 +14,8 @@ public interface MainView {
     void toastLoginFailed();
 
     void launchPostsActivity();
+
+    void showProgressBar();
+
+    void hideProgressBar();
 }

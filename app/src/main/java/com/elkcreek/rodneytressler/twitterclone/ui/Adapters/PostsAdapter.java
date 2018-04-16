@@ -26,9 +26,12 @@ import butterknife.ButterKnife;
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHolder> {
 
     private List<Post> postList;
+    private Callback callback;
 
-    public PostsAdapter(List<Post> postList) {
+
+    public PostsAdapter(List<Post> postList, Callback callback) {
         this.postList = postList;
+        this.callback = callback;
     }
 
 
@@ -42,7 +45,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
     public void onBindViewHolder(PostsViewHolder holder, int position) {
         holder.bindPosts(postList.get(position));
 
-        holder.isFavorited.setOnClickListener(holder.onLikeClicked());
+        holder.isFavorited.setOnClickListener(holder.onLikeClicked(postList.get(position)));
     }
 
     @Override
@@ -94,7 +97,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
             }
         }
 
-        public View.OnClickListener onLikeClicked() {
+        public View.OnClickListener onLikeClicked(Post post) {
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -105,6 +108,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
     }
 
     public interface Callback {
-        void favoriteClicked(String userEmail);
+        void favoriteClicked(Post post, String userEmail);
     }
 }

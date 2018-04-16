@@ -28,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PostsActivity extends AppCompatActivity implements PostsView, PostFragment.Callback {
+public class PostsActivity extends AppCompatActivity implements PostsView, PostFragment.Callback, PostsAdapter.Callback {
 
     @BindView(R.id.posts_recycler_view)
     protected RecyclerView postsRecyclerView;
@@ -56,7 +56,7 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
         presenter.onCreate(this);
 
         postList = new ArrayList<>();
-        adapter = new PostsAdapter(postList);
+        adapter = new PostsAdapter(postList, this);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
@@ -164,4 +164,8 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
     }
 
 
+    @Override
+    public void favoriteClicked(Post post, String userEmail) {
+
+    }
 }

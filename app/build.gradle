@@ -55,6 +55,9 @@ dependencies {
 
     //Preference Fragment
     implementation 'com.android.support:preference-v7:26.1.0'
+
+    //Firebase Recycler Adapter
+    compile 'com.firebaseui:firebase-ui-database:0.4.1'
 }
 
 

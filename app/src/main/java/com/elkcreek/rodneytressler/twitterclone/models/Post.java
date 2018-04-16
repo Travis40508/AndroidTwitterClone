@@ -18,46 +18,47 @@ public class Post {
     private String email;
     private String displayName;
     private List<String> likes;
+    private String postKey;
 
     public Post(String postContent) {
         this.postContent = postContent;
         this.likes = new ArrayList<>();
-        this.date = getDate();
-        this.email = getEmail();
-        this.displayName = getDisplayName();
+        this.date = setDate();
+        this.email = setEmail();
+        this.displayName = setDisplayName();
     }
 
     public Post() {
 
     }
 
-    public String getPostDate() {
+    public String getDate() {
         return date;
     }
 
-    public String getPostDisplayName() {
+    public String getDisplayName() {
         return displayName;
     }
 
-    public String getPostEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public String getEmail() {
+    public String setEmail() {
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         return user.getEmail();
     }
 
-    public String getDisplayName() {
+    public String setDisplayName() {
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         return user.getDisplayName();
     }
 
-    public String getDate() {
+    public String setDate() {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         String strDate= formatter.format(date);
@@ -70,11 +71,12 @@ public class Post {
         return postContent;
     }
 
-    public List<String> getLikes() {
-        return likes;
+
+    public void setPostKey(String postKey) {
+        this.postKey = postKey;
     }
 
-    public void setLike(String like) {
-        this.likes.add(like);
+    public String getPostKey() {
+        return postKey;
     }
 }

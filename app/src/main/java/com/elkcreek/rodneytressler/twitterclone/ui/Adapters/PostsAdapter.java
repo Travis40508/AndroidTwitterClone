@@ -13,6 +13,8 @@ import com.elkcreek.rodneytressler.twitterclone.R;
 import com.elkcreek.rodneytressler.twitterclone.models.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -76,32 +78,24 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         }
 
         public void bindPosts(Post post) {
-            userName.setText(post.getPostDisplayName());
-            userEmail.setText(post.getPostEmail());
+            userName.setText(post.getDisplayName());
+            userEmail.setText(post.getEmail());
             postContent.setText(post.getPostContent());
-            postTimeStamp.setText(post.getPostDate());
-            isFavorited.setImageDrawable(getFavorited(post));
+            postTimeStamp.setText(post.getDate());
+            isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_unfavorite));
         }
 
-        private Drawable getFavorited(Post post) {
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            if (post.getLikes() != null) {
-                if (post.getLikes().contains(firebaseUser.getEmail())) {
-                    return itemView.getResources().getDrawable(R.drawable.ic_favorite);
-                } else {
-                    return itemView.getResources().getDrawable(R.drawable.ic_unfavorite);
-                }
-            } else {
-                return itemView.getResources().getDrawable(R.drawable.ic_unfavorite);
-            }
-        }
+//        private Drawable getFavorited(Post post) {
+//            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+//
+//        }
 
         public View.OnClickListener onLikeClicked(Post post) {
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                 }
             };
         }

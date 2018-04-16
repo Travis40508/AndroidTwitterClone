@@ -44,8 +44,9 @@ public class PostsPresenter {
                         FirebaseAuth auth = FirebaseAuth.getInstance();
                         FirebaseUser user = auth.getCurrentUser();
                         Post post = dataSnapshot.getValue(Post.class);
+                        post.setPostKey(dataSnapshot.getKey());
                         view.showNewPost(post);
-                        if (!post.getPostEmail().equals(user.getEmail()) && !appIsActive && pushNotificationPreference) {
+                        if (!post.getEmail().equals(user.getEmail()) && !appIsActive && pushNotificationPreference) {
                             view.showNotification();
                         }
                     }

@@ -13,6 +13,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 /**
  * Created by rodneytressler on 4/10/18.
  */
@@ -20,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 public class PostsPresenter {
     private PostsView view;
     private DatabaseReference mDatabase;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
     private boolean appIsActive = false;
     private boolean pushNotificationPreference;
 
@@ -29,6 +33,8 @@ public class PostsPresenter {
 
         if (view != null) {
             mDatabase = FirebaseDatabase.getInstance().getReference();
+            firebaseAuth = FirebaseAuth.getInstance();
+            firebaseUser = firebaseAuth.getCurrentUser();
         }
 
         listenForPostUpdates();
@@ -110,6 +116,23 @@ public class PostsPresenter {
 
     public void favoriteClicked(Post post, String userEmail) {
         mDatabase.child(post.getPostKey()).child("likes").push().setValue(userEmail);
+        mDatabase.child(post.getPostKey()).child("likes").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String email = snapshot.getValue(String.class);
+                    if(email.equals(userEmail)) {
+                        Log.d("@@@@@", "PROGRESS");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public void unFavoriteClicked(Post post, String userEmail) {

@@ -2,6 +2,7 @@ package com.elkcreek.rodneytressler.twitterclone.ui.Adapters;
 
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.elkcreek.rodneytressler.twitterclone.models.Likes;
 import com.elkcreek.rodneytressler.twitterclone.models.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -93,17 +95,32 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
             postContent.setText(post.getPostContent());
             postTimeStamp.setText(post.getDate());
 
-            firebaseDatabase.getReference().child(post.getPostKey()).child("likes").addListenerForSingleValueEvent(new ValueEventListener() {
+            isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_unfavorite));
+
+            firebaseDatabase.getReference().child(post.getPostKey()).addChildEventListener(new ChildEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Likes like = snapshot.getValue(Likes.class);
-                        if(like.getEmail().equals(firebaseUser.getEmail())) {
+                        String email = snapshot.getValue(String.class);
+                        if(email.equals(firebaseUser.getEmail())) {
                             isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_favorite));
-                        } else {
-                            isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_unfavorite));
                         }
                     }
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Log.d("@@@@", "CHANGED");
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
                 }
 
                 @Override

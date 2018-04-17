@@ -115,20 +115,25 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                    boolean isFavorite = false;
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String email = snapshot.getValue(String.class);
+                        String currentUserEmail = firebaseUser.getEmail();
+                        if(email.equals(currentUserEmail)) {
+                            isFavorite = true;
+                            itemKey = snapshot.getKey();
+                        }
+                    }
+                    if(isFavorite) {
+                        isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_favorite));
+                    } else {
+                        isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_unfavorite));
+                    }
                 }
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        String email = snapshot.getValue(String.class);
-                        if(email.equals(firebaseUser.getEmail())) {
-                            isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_favorite));
-                            itemKey = snapshot.getKey();
-                        } else {
-                            isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_unfavorite));
-                        }
-                    }
+                    isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_unfavorite));
                 }
 
                 @Override

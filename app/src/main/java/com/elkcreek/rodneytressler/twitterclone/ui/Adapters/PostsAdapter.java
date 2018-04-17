@@ -93,7 +93,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
 
             isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_unfavorite));
 
-            firebaseDatabase.getReference().child(post.getPostKey()).addChildEventListener(new ChildEventListener() {
+            listenForChanges(post.getPostKey());
+
+
+        }
+
+        private void listenForChanges(String postKey) {
+            firebaseDatabase.getReference().child(postKey).addChildEventListener(new ChildEventListener() {
 
 
                 @Override

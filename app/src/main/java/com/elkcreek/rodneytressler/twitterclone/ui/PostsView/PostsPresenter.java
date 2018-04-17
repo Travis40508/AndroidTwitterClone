@@ -116,26 +116,9 @@ public class PostsPresenter {
 
     public void favoriteClicked(Post post, String userEmail) {
         mDatabase.child(post.getPostKey()).child("likes").push().setValue(userEmail);
-        mDatabase.child(post.getPostKey()).child("likes").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String email = snapshot.getValue(String.class);
-                    if(email.equals(userEmail)) {
-                        Log.d("@@@@@", "PROGRESS");
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
     }
 
-    public void unFavoriteClicked(Post post, String userEmail) {
-
+    public void unFavoriteClicked(Post post, String itemKey) {
+        mDatabase.child(post.getPostKey()).child("likes").child(itemKey).removeValue();
     }
 }

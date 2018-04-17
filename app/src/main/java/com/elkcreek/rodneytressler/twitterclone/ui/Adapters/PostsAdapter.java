@@ -84,6 +84,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         @BindView(R.id.text_user_name)
         protected TextView userName;
 
+        private String itemKey;
+
         public PostsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -98,24 +100,35 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
             isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_unfavorite));
 
             firebaseDatabase.getReference().child(post.getPostKey()).addChildEventListener(new ChildEventListener() {
+
+
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         String email = snapshot.getValue(String.class);
                         if(email.equals(firebaseUser.getEmail())) {
                             isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_favorite));
+                            itemKey = snapshot.getKey();
                         }
                     }
                 }
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    Log.d("@@@@", "CHANGED");
+
                 }
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String email = snapshot.getValue(String.class);
+                        if(email.equals(firebaseUser.getEmail())) {
+                            isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_favorite));
+                            itemKey = snapshot.getKey();
+                        } else {
+                            isFavorited.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_unfavorite));
+                        }
+                    }
                 }
 
                 @Override
@@ -135,8 +148,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(isFavorited.getDrawable().equals(itemView.getResources().getDrawable(R.drawable.ic_favorite))) {
-                        callback.unFavoriteClicked(post, firebaseUser.getEmail());
+                    if(isFavorited.getDrawable().getConstantState() == itemView.getResources().getDrawable(R.drawable.ic_favorite).getConstantState()) {
+                        callback.unFavoriteClicked(post, itemKey);
                     } else {
                         callback.favoriteClicked(post, firebaseUser.getEmail());
                     }
@@ -147,6 +160,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
 
     public interface Callback {
         void favoriteClicked(Post post, String userEmail);
-        void unFavoriteClicked(Post post, String userEmail);
+        void unFavoriteClicked(Post post, String itemKey);
     }
 }

@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Registr
     @BindView(R.id.progress_bar)
     protected ProgressBar progressBar;
 
+    public static final String REGISTRATION_TAG = "registration_tag";
+
     @OnClick(R.id.button_register)
     protected void onRegisterClicked(View view) {
         presenter.registerButtonClicked();
@@ -61,6 +63,10 @@ public class MainActivity extends AppCompatActivity implements MainView, Registr
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        if(savedInstanceState != null) {
+            registrationFragment = (RegistrationFragment) getSupportFragmentManager().findFragmentByTag(REGISTRATION_TAG);
+        }
+
 
         presenter.onCreate(this);
     }
@@ -69,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Registr
     public void launchRegistrationFragment() {
         registrationFragment = RegistrationFragment.newInstance();
         registrationFragment.attachParent(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, registrationFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, registrationFragment, REGISTRATION_TAG).commit();
     }
 
     @Override

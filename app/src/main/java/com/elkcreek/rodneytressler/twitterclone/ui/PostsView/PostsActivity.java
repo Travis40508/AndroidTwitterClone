@@ -45,6 +45,7 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
     private PostsPresenter presenter;
     private List<Post> postList;
     private PostFragment fragment;
+    public static final String POST_TAG = "post_tag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +53,15 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
         setContentView(R.layout.activity_posts);
         ButterKnife.bind(this);
         setSupportActionBar(customToolbar);
+
+
         presenter = new PostsPresenter();
         presenter.onCreate(this);
+
+        if(savedInstanceState != null) {
+            fragment = (PostFragment) getSupportFragmentManager().findFragmentByTag(POST_TAG);
+            fragment.attachView(this);
+        }
 
         postList = new ArrayList<>();
         adapter = new PostsAdapter(postList, this);
@@ -116,7 +124,7 @@ public class PostsActivity extends AppCompatActivity implements PostsView, PostF
         getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.enter, R.anim.pop_exit)
-                .replace(R.id.fragment_holder, fragment)
+                .replace(R.id.fragment_holder, fragment, POST_TAG)
                 .commit();
     }
 
